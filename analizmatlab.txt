@@ -1,0 +1,34 @@
+pview
+5 50 95
+
+smotor
+145 190 235
+
+srtt
+287 381 475
+
+gonogo
+334 428 522
+
+1geri
+574 809 903
+
+2geri
+621 715 950
+
+3geri
+668 762 856
+
+instruction1
+285 332 379 426 473 520
+instruction2
+572 619 666 713 760 807 854 901 948
+
+
+other regressors: 3
+[ones(1,140) zeros(1,855)]
+[zeros(1,140) ones(1,140) zeros(1,715)]
+[zeros(1,280) ones(1,287) zeros(1,428)]
+
+
+[zeros(1, 6) 1]
