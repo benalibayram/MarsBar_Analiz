@@ -1,4 +1,4 @@
-% MarsBar’a verileri yüklemek için öncelikle ica_timeseries_load.m komutunu çalıştırıyoruz.
+ % MarsBar’a verileri yüklemek için öncelikle ica_timeseries_load.m komutunu çalıştırıyoruz.
 % 
 % Komponent listesinden (comp_list) 12 çıkartıldı. 09.05.2021
 

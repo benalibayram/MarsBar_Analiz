@@ -1,12 +1,24 @@
-# matlab
-fmri rest analysis
-deneme
-denenene
-son
+# MarsBar Analiz
+#### ICA_timeseries_load.m
 
-ICA_timeseries_load.m
-	GIFT sonucu komponentlerin zaman serilerini çıkaran program.
-MarsBar içerisinde verileri matlab'den tanımlayarak veri yükleyip regress edebiliriz.
-	995x16 boyutlu tanımlanmış veri değişkeni MarsBar'a yüklendi. Tüm zaman serisini içeren tasarım matrisi üretildi.
-	kontrastlar tanımlanmadı. Estimation yapılabiliyor. sonuçlar t değeri olarak alınabiliyor.
-	tek sorun farklı çekimler arası geçişlerde atlamalar mevcut, modellenememiş. 
+GIFT sonucu komponentlerin zaman serilerini çıkaran program.
+GIFT analizleri içerisinde *scaling_components_files* klasörü tanımlanması gerekiyor. Tüm subjectler için tasklara ait komponentlerin zaman serileri ardarda ekleniyor. Marsbar tarafından okunacak şekilde *ICA_timeseries_loaded* ile başlayan mat dosyasına  kaydediliyor. Marsbar arayüzünden import edilecek Matlab değişkeninin ismi ise: *tcourses*
+
+
+#### marsbar_datasave.m
+
+Marsbar arayüzünden Matlab değişkeni yükleyip kaydetmek yerine script ile aynı işi yapmak istersen bu programı kullanabilirsin. Ama eğer *marsbar_batch.m* ile ilerleyeceksen bu kodu kullanman gerekmiyor.
+
+#### marsbar_batch.m ve marsbar_batch_extra_kontrast.m
+
+Tüm analizi yapıp **marsbar_batch_outputs** alt klasöründe *stat_struct_* ile başlayan mat dosyalarına kaydediliyor.
+
+### marsbar_batch_outputs alt klasöründe
+
+#### sonuçlar_excele.m
+
+SPSS analizi için sonuçları excel ortamına transfer eden kod.
+
+#### sonuçlar_FSLe.m
+
+Sonuçları FSL'de permutasyon analizine tabi tutmak için NIfTI formatında kaydediyor.
