@@ -2,7 +2,7 @@
 clear all
 subj_num = 28;
 RSN_num = 15;
-labels = {'Subj' 'Kontrast' 'Primer_VN' 'Seconder_VN' 'Somotomotor' 'Posterior_DMN'...
+labels = {'Kontrast' 'Subj' 'Primer_VN' 'Seconder_VN' 'Somotomotor' 'Posterior_DMN'...
     'Right_FPN' 'BG' 'Cerebellum' 'Left_FPN' 'MPFC_DMN'...
     'Sup_Somotomotor' 'Dorsal_Attention' 'Limbic' 'Left_Somotomotor'...
     'DMN' 'Ventral_Attention'};
@@ -25,9 +25,12 @@ end
 dummy1 = reshape(f512_none_v5, [subj_num, RSN_num, Cont_num]);
 dummy2 = permute(dummy1, [1 3 2]); % subj_num x Cont_num x RSN_num
 f512_none_v5 = reshape(dummy2, [subj_num*Cont_num RSN_num]);
-f512_none_v5 = [repmat([1:Cont_num]',subj_num,1) f512_none_v5];
-f512_none_v5 = [repelem([1:Cont_num]',subj_num) f512_none_v5];
-T_f512_none_v5 = cell2table(num2cell(f512_none_v5),'VariableNames',labels);
+f512_none_v5 = [repmat([1:subj_num]',Cont_num,1) f512_none_v5];
+f512_none_v5_cell = num2cell(f512_none_v5);
+cont_names_all = repelem(cont_names', subj_num, 1);
+f512_none_v5_cell = [cont_names_all f512_none_v5_cell];
+
+T_f512_none_v5 = cell2table(f512_none_v5_cell,'VariableNames',labels);
 
 writetable(T_f512_none_v5,'T_C15_f512_none_v5_extra_kontrast_tasksubj.xls');
 

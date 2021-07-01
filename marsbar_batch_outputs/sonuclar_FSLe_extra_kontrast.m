@@ -31,7 +31,9 @@ for RSN_ind = 1:length(labels)
 end
 %%
 load(fullfile(pwd, 'stat_struct_C15_f512_none_v5_extra_kontrast.mat'))
-tvals_512_v5 = cat(3, stat_struct.stat); % 7x15x29
+perm_num = 20000;
+
+tvals_512_v5 = cat(3, stat_struct.stat); % 28x15x29
 for subj_ind=1:28
     subjname = sprintf('_%02dDDA_512_v5.nii',subj_ind);
     for RSN_ind = 1:length(labels)
@@ -73,9 +75,9 @@ for RSN_ind = 1:length(labels)
         system(merge_command);
         
         % randomise 
-        randomise_command = sprintf('randomise -i %s_All_512_v5 -o %s -d %s -t %s -x',...
+        randomise_command = sprintf('randomise -i %s_All_512_v5 -o %s -d %s -t %s -n %d -x',...
             labels{RSN_ind}, fullfile(guncel_klasor, 'results_512_v5'),...
-            fullfile(proj_dir, 'design.mat'), fullfile(proj_dir, 'contrast.mat'));
+            fullfile(proj_dir, 'design.mat'), fullfile(proj_dir, 'contrast.mat'), perm_num);
         system(randomise_command);
         
         system('gunzip -f results_512_v5_vox_corrp_tstat1.nii.gz');
@@ -89,11 +91,10 @@ corrp_512_v5_c1_binary(corrp_512_v5_c1 > 0.95) = 1;
 meantvals_512_v5 = mean(tvals_512_v5(:,:,1:28), 3);
 row_labels = repmat(cont_names',3,1);
 corrp_512_v5_c1_binary_table = cell2table([row_labels num2cell([corrp_512_v5_c1_binary;corrp_512_v5_c1; meantvals_512_v5])],'VariableNames',[{'Kontrasts'} labels]);
-writetable(corrp_512_v5_c1_binary_table, fullfile(proj_dir, 'corrp_512_v5_c1_binary_table.xls'));
+writetable(corrp_512_v5_c1_binary_table, fullfile(proj_dir, 'corrp_512_v5_c1_binary_table_extra_kontrast.xls'));
 
-corrp_512_v5_c2_binary = zeros(7, 15);
+corrp_512_v5_c2_binary = zeros(length(cont_names), length(labels));
 corrp_512_v5_c2_binary(corrp_512_v5_c2 > 0.95) = 1;
-wcell = [repmat(cont_names',3,1) ];
 corrp_512_v5_c2_binary_table = cell2table([row_labels num2cell([corrp_512_v5_c2_binary; corrp_512_v5_c2; meantvals_512_v5])],'VariableNames',[{'Kontrasts'} labels]);
-writetable(corrp_512_v5_c2_binary_table, fullfile(proj_dir, 'corrp_512_v5_c2_binary_table.xls'));
+writetable(corrp_512_v5_c2_binary_table, fullfile(proj_dir, 'corrp_512_v5_c2_binary_table_extra_kontrast.xls'));
 
