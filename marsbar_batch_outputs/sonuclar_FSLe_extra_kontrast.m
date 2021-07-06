@@ -19,7 +19,7 @@ end
 Cont_num = length(cont_names);
 
 % Proje klasörleri oluşturuldu.
-proj_dir = fullfile(pwd, 'FSL_RSN_extra_kontrast');
+proj_dir = fullfile(pwd, 'FSL_RSN_extra_kontrast_deneme_3_5000');
 if ~exist(proj_dir, 'dir')
     mkdir(proj_dir)
 end
@@ -31,7 +31,7 @@ for RSN_ind = 1:length(labels)
 end
 %%
 load(fullfile(pwd, 'stat_struct_C15_f512_none_v5_extra_kontrast.mat'))
-perm_num = 20000;
+perm_num = 5000;
 
 tvals_512_v5 = cat(3, stat_struct.stat); % 28x15x29
 for subj_ind=1:28
@@ -43,7 +43,6 @@ for subj_ind=1:28
 end
 
 %%
-proj_dir = fullfile(pwd, 'FSL_RSN_extra_kontrast');
 %design matris 28 tane 1'den olusuyor.
 design_mat = ones(28,1);
 dlmwrite(fullfile(proj_dir, 'design.txt'), design_mat);
@@ -91,10 +90,10 @@ corrp_512_v5_c1_binary(corrp_512_v5_c1 > 0.95) = 1;
 meantvals_512_v5 = mean(tvals_512_v5(:,:,1:28), 3);
 row_labels = repmat(cont_names',3,1);
 corrp_512_v5_c1_binary_table = cell2table([row_labels num2cell([corrp_512_v5_c1_binary;corrp_512_v5_c1; meantvals_512_v5])],'VariableNames',[{'Kontrasts'} labels]);
-writetable(corrp_512_v5_c1_binary_table, fullfile(proj_dir, 'corrp_512_v5_c1_binary_table_extra_kontrast.xls'));
+writetable(corrp_512_v5_c1_binary_table, fullfile(proj_dir, 'corrp_512_v5_c1_binary_table_extra_kontrast_3.xls'));
 
 corrp_512_v5_c2_binary = zeros(length(cont_names), length(labels));
 corrp_512_v5_c2_binary(corrp_512_v5_c2 > 0.95) = 1;
 corrp_512_v5_c2_binary_table = cell2table([row_labels num2cell([corrp_512_v5_c2_binary; corrp_512_v5_c2; meantvals_512_v5])],'VariableNames',[{'Kontrasts'} labels]);
-writetable(corrp_512_v5_c2_binary_table, fullfile(proj_dir, 'corrp_512_v5_c2_binary_table_extra_kontrast.xls'));
+writetable(corrp_512_v5_c2_binary_table, fullfile(proj_dir, 'corrp_512_v5_c2_binary_table_extra_kontrast_3.xls'));
 
